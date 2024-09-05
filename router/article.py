@@ -23,3 +23,5 @@ def get_article(id: int, db: Session = Depends(get_db), current_user: UserBase =
     'data': db_article.get_article(db, id),
     'current_user': current_user
   }
+  
+  x = 5
