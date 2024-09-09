@@ -1,4 +1,6 @@
 from http.client import HTTPException
+from importlib.metadata import files
+from unicodedata import name
 from urllib.request import Request
 from xml.etree.ElementInclude import include
 from fastapi import FastAPI
@@ -9,6 +11,7 @@ from db.database import engine
 from db import models
 from fastapi.responses import JSONResponse
 from fastapi.responses import PlainTextResponse
+from fastapi.staticfiles import StaticFiles
 
 
 app = FastAPI()
@@ -36,3 +39,5 @@ def custom_handler(request: Request, exc: StoryException):
     return PlainTextResponse(str(exc), status_code=400)
     
 models.Base.metadata.create_all(engine)
+
+app.mount('/files', StaticFiles(directory="files"), name='files')
